@@ -2,8 +2,6 @@
 
 namespace NumaxLab\Geslib;
 
-use NumaxLab\Geslib\LineFactory;
-
 class Parser
 {
     /**
@@ -37,6 +35,10 @@ class Parser
 
         foreach ($lines as $lineNumber => $line) {
             $lineFields = explode(GeslibFile::FIELD_SEPARATOR, $line);
+
+            if (empty(trim($lineFields[0]))) {
+                continue;
+            }
 
             if ($lineNumber === 0 && $lineFields[0] === LineFactory::INITIAL_FILE_CODE) {
                 $this->file->setAsInitialFile();

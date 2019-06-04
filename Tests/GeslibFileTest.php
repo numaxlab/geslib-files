@@ -21,7 +21,7 @@ class GeslibFileTest extends TestCase
 
     public function testParsesFile()
     {
-        $fileContent = file_get_contents(__DIR__.'/fixtures/INTER000');
+        $fileContent = file_get_contents(__DIR__.'/fixtures/INITIAL');
 
         $geslibFile = GeslibFile::parse($fileContent);
 

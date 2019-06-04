@@ -26,6 +26,7 @@ use NumaxLab\Geslib\Lines\Ibic;
 use NumaxLab\Geslib\Lines\Language;
 use NumaxLab\Geslib\Lines\LineInterface;
 use NumaxLab\Geslib\Lines\Preposition;
+use NumaxLab\Geslib\Lines\PressPublication;
 use NumaxLab\Geslib\Lines\Province;
 use NumaxLab\Geslib\Lines\RecordLabel;
 use NumaxLab\Geslib\Lines\Status;
@@ -44,7 +45,7 @@ class LineFactory
         Editorial::CODE                     => Editorial::class,
         RecordLabel::CODE                   => RecordLabel::class,
         '1P'                                => null,
-        '1R'                                => null,
+        PressPublication::CODE              => PressPublication::class,
         Collection::CODE                    => Collection::class,
         Topic::CODE                         => Topic::class,
         Article::CODE                       => Article::class,

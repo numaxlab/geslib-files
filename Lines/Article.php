@@ -4,6 +4,7 @@ namespace NumaxLab\Geslib\Lines;
 
 use Carbon\Carbon;
 use NumaxLab\Geslib\GeslibFile;
+use Stringy\Stringy;
 
 class Article implements LineInterface
 {
@@ -210,6 +211,115 @@ class Article implements LineInterface
     private $originalTitle;
 
     /**
+     * Article constructor.
+     * @param Action $action
+     * @param $id
+     * @param null $title
+     * @param array $authors
+     * @param null $isbn
+     * @param null $ean
+     * @param null $pagesQty
+     * @param null $edition
+     * @param null $firstEditionYear
+     * @param null $lastEditionYear
+     * @param null $location
+     * @param null $stock
+     * @param null $topicId
+     * @param null $createdAt
+     * @param null $noveltyDate
+     * @param null $languageId
+     * @param null $formatId
+     * @param null $translator
+     * @param null $illustrator
+     * @param null $collectionId
+     * @param null $collectionNumber
+     * @param null $subtitle
+     * @param null $statusId
+     * @param null $tmr
+     * @param null $retailPrice
+     * @param null $typeId
+     * @param null $classificationId
+     * @param null $editorialId
+     * @param null $priceWithoutTaxes
+     * @param null $illustrationsQty
+     * @param null $weight
+     * @param null $height
+     * @param null $appearanceDate
+     * @param null $description
+     * @param null $altLocation
+     * @param null $taxes
+     * @param null $cdu
+     * @param null $originalLanguageId
+     * @param null $originalTitle
+     */
+    private function __construct(
+        Action $action,
+        $id,
+        $title = null,
+        $authors = [],
+        $isbn = null,
+        $ean = null,
+        $pagesQty = null,
+        $edition = null,
+        $firstEditionYear = null,
+        $lastEditionYear = null,
+        $location = null,
+        $stock = null,
+        $topicId = null,
+        $createdAt = null,
+        $noveltyDate = null,
+        $languageId = null,
+        $formatId = null,
+        $translator = null,
+        $illustrator = null,
+        $collectionId = null,
+        $collectionNumber = null,
+        $subtitle = null,
+        $statusId = null,
+        $tmr = null,
+        $retailPrice = null,
+        $typeId = null,
+        $classificationId = null,
+        $editorialId = null,
+        $priceWithoutTaxes = null,
+        $illustrationsQty = null,
+        $weight = null,
+        $height = null,
+        $appearanceDate = null,
+        $description = null,
+        $altLocation = null,
+        $taxes = null,
+        $cdu = null,
+        $originalLanguageId = null,
+        $originalTitle = null
+    ) {
+        $this->action = $action;
+        $this->id = $id;
+        $this->title = $title;
+    }
+
+    /**
+     * @param string $id
+     * @return Article
+     */
+    public static function createWithDeleteAction($id)
+    {
+        return new self(Action::fromCode(Action::DELETE), $id);
+    }
+
+    /**
+     * @param Action $action
+     * @param $id
+     * @param $title
+     * @param $authors
+     * @return Article
+     */
+    public static function createWithAction(Action $action, $id, $title, $authors)
+    {
+        return new self($action, $id, $title, $authors);
+    }
+
+    /**
      * @return string
      */
     public static function getCode()
@@ -231,6 +341,26 @@ class Article implements LineInterface
      */
     public static function fromLine($line)
     {
-        return new self();
+        $action = Action::fromCode($line[1]);
+
+        if ($action->isDelete()) {
+            return self::createWithDeleteAction($line[1]);
+        }
+
+        $authors = [];
+        $line4 = Stringy::create($line[4]);
+
+        if (! empty($line4->trim())) {
+            foreach (explode(';', $line4) as $lineAuthor) {
+                $authors[] = Stringy::create($lineAuthor)->trim();
+            }
+        }
+
+        return self::createWithAction(
+            $action,
+            $line[2],
+            $line[3],
+            $authors
+        );
     }
 }

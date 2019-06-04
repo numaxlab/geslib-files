@@ -41,13 +41,35 @@ class Topic implements LineInterface
      * @param string $descriptionEs
      * @param string $descriptionEn
      */
-    public function __construct(Action $action, $id, $description, $descriptionEs, $descriptionEn)
+    private function __construct(Action $action, $id, $description = null, $descriptionEs = null, $descriptionEn = null)
     {
         $this->action = $action;
         $this->id = $id;
         $this->description = $description;
         $this->descriptionEs = $descriptionEs;
         $this->descriptionEn = $descriptionEn;
+    }
+
+    /**
+     * @param $id
+     * @return Topic
+     */
+    private static function createWithDeleteAction($id)
+    {
+        return new self(Action::fromCode(Action::DELETE), $id);
+    }
+
+    /**
+     * @param Action $action
+     * @param $id
+     * @param $description
+     * @param $descriptionEs
+     * @param $descriptionEn
+     * @return Topic
+     */
+    private static function createWithAction(Action $action, $id, $description, $descriptionEs, $descriptionEn)
+    {
+        return new self($action, $id, $description, $descriptionEs, $descriptionEn);
     }
 
     /**
@@ -112,8 +134,14 @@ class Topic implements LineInterface
      */
     public static function fromLine($line)
     {
-        return new self(
-            Action::fromCode($line[1]),
+        $action = Action::fromCode($line[1]);
+
+        if ($action->isDelete()) {
+            return self::createWithDeleteAction($line[1]);
+        }
+
+        return self::createWithAction(
+            $action,
             $line[2],
             $line[3],
             $line[4],
