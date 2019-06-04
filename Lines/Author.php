@@ -2,8 +2,12 @@
 
 namespace NumaxLab\Geslib\Lines;
 
+use NumaxLab\Geslib\GeslibFile;
+
 class Author implements LineInterface
 {
+    const CODE = 'AUT';
+
     /**
      * @var Action
      */
@@ -59,9 +63,17 @@ class Author implements LineInterface
     /**
      * @return string
      */
+    public static function getCode()
+    {
+        return self::CODE;
+    }
+
+    /**
+     * @return string
+     */
     public function toLine()
     {
-        // TODO: Implement toLine() method.
+        return self::CODE.GeslibFile::FIELD_SEPARATOR;
     }
 
     /**

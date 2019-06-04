@@ -3,9 +3,12 @@
 namespace NumaxLab\Geslib\Lines;
 
 use Carbon\Carbon;
+use NumaxLab\Geslib\GeslibFile;
 
 class Article implements LineInterface
 {
+    const CODE = 'GP4';
+
     /**
      * @var Action
      */
@@ -209,9 +212,17 @@ class Article implements LineInterface
     /**
      * @return string
      */
+    public static function getCode()
+    {
+        return self::CODE;
+    }
+
+    /**
+     * @return string
+     */
     public function toLine()
     {
-        // TODO: Implement toLine() method.
+        return self::CODE.GeslibFile::FIELD_SEPARATOR;
     }
 
     /**

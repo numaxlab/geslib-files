@@ -2,8 +2,12 @@
 
 namespace NumaxLab\Geslib\Lines;
 
+use NumaxLab\Geslib\GeslibFile;
+
 class Status implements LineInterface
 {
+    const CODE = 'E';
+
     /**
      * @var string
      */
@@ -44,9 +48,17 @@ class Status implements LineInterface
     /**
      * @return string
      */
+    public static function getCode()
+    {
+        return self::CODE;
+    }
+
+    /**
+     * @return string
+     */
     public function toLine()
     {
-        // TODO: Implement toLine() method.
+        return self::CODE.GeslibFile::FIELD_SEPARATOR;
     }
 
     /**

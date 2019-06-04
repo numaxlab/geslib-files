@@ -2,8 +2,12 @@
 
 namespace NumaxLab\Geslib\Lines;
 
+use NumaxLab\Geslib\GeslibFile;
+
 class Province implements LineInterface
 {
+    const CODE = 'PROVIN';
+
     /**
      * @var string
      */
@@ -44,9 +48,17 @@ class Province implements LineInterface
     /**
      * @return string
      */
+    public static function getCode()
+    {
+        return self::CODE;
+    }
+
+    /**
+     * @return string
+     */
     public function toLine()
     {
-        // TODO: Implement toLine() method.
+        return self::CODE.GeslibFile::FIELD_SEPARATOR;
     }
 
     /**

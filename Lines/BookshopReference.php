@@ -2,8 +2,12 @@
 
 namespace NumaxLab\Geslib\Lines;
 
+use NumaxLab\Geslib\GeslibFile;
+
 class BookshopReference implements LineInterface
 {
+    const CODE = '6';
+
     /**
      * @var string
      */
@@ -59,9 +63,17 @@ class BookshopReference implements LineInterface
     /**
      * @return string
      */
+    public static function getCode()
+    {
+        return self::CODE;
+    }
+
+    /**
+     * @return string
+     */
     public function toLine()
     {
-        // TODO: Implement toLine() method.
+        return self::CODE.GeslibFile::FIELD_SEPARATOR;
     }
 
     /**

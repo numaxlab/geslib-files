@@ -7,6 +7,11 @@ interface LineInterface
     /**
      * @return string
      */
+    public static function getCode();
+
+    /**
+     * @return string
+     */
     public function toLine();
 
     /**
