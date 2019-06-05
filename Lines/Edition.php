@@ -12,12 +12,12 @@ class Edition
     private $number;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $editorial;
 
     /**
-     * @var Carbon
+     * @var Carbon|null
      */
     private $date;
 
@@ -29,11 +29,11 @@ class Edition
     /**
      * Edition constructor.
      * @param string $number
-     * @param string $editorial
-     * @param Carbon $date
+     * @param string|null $editorial
+     * @param Carbon|null $date
      * @param Carbon|null $reEditionDate
      */
-    public function __construct($number, $editorial, Carbon $date, Carbon $reEditionDate)
+    public function __construct($number, $editorial = null, $date = null, $reEditionDate = null)
     {
         $this->number = $number;
         $this->editorial = $editorial;
@@ -50,7 +50,7 @@ class Edition
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function editorial()
     {
@@ -58,7 +58,7 @@ class Edition
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
     public function date()
     {
