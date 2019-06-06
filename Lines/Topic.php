@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class Topic implements LineInterface
 {
@@ -136,16 +137,18 @@ class Topic implements LineInterface
     {
         $action = Action::fromCode($line[1]);
 
+        $id = TypeCast::string($line[2]);
+
         if ($action->isDelete()) {
-            return self::createWithDeleteAction($line[1]);
+            return self::createWithDeleteAction($id);
         }
 
         return self::createWithAction(
             $action,
-            $line[2],
-            $line[3],
-            $line[4],
-            $line[5]
+            $id,
+            TypeCast::string($line[3]),
+            TypeCast::string($line[4]),
+            TypeCast::string($line[5])
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class Editorial implements LineInterface
 {
@@ -31,23 +32,45 @@ class Editorial implements LineInterface
     /**
      * @var string
      */
-    private $country;
+    private $countryId;
 
     /**
      * Editorial constructor.
      * @param Action $action
      * @param string $id
-     * @param string $name
-     * @param string $externalName
-     * @param string $country
+     * @param string|null $name
+     * @param string|null $externalName
+     * @param string|null $countryId
      */
-    public function __construct(Action $action, $id, $name, $externalName, $country)
+    private function __construct(Action $action, $id, $name = null, $externalName = null, $countryId = null)
     {
         $this->action = $action;
         $this->id = $id;
         $this->name = $name;
         $this->externalName = $externalName;
-        $this->country = $country;
+        $this->countryId = $countryId;
+    }
+
+    /**
+     * @param string $id
+     * @return Editorial
+     */
+    public static function createWithDeleteAction($id)
+    {
+        return new self(Action::fromCode(Action::DELETE), $id);
+    }
+
+    /**
+     * @param Action $action
+     * @param string $id
+     * @param string $name
+     * @param $externalName
+     * @param $countryId
+     * @return Editorial
+     */
+    public static function createWithAction(Action $action, $id, $name, $externalName, $countryId)
+    {
+        return new self($action, $id, $name, $externalName, $countryId);
     }
 
     /**
@@ -85,9 +108,9 @@ class Editorial implements LineInterface
     /**
      * @return string
      */
-    public function country()
+    public function countryId()
     {
-        return $this->country;
+        return $this->countryId;
     }
 
     /**
@@ -112,12 +135,20 @@ class Editorial implements LineInterface
      */
     public static function fromLine($line)
     {
-        return new self(
-            Action::fromCode($line[1]),
-            $line[2],
-            $line[3],
-            $line[4],
-            $line[5]
+        $action = Action::fromCode($line[1]);
+
+        $id = TypeCast::string($line[2]);
+
+        if ($action->isDelete()) {
+            return self::createWithDeleteAction($id);
+        }
+
+        return self::createWithAction(
+            $action,
+            $id,
+            TypeCast::string($line[3]),
+            TypeCast::string($line[4]),
+            TypeCast::string($line[5])
         );
     }
 }

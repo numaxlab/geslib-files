@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class Author implements LineInterface
 {
@@ -19,7 +20,7 @@ class Author implements LineInterface
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
@@ -27,13 +28,33 @@ class Author implements LineInterface
      * Author constructor.
      * @param Action $action
      * @param string $id
-     * @param string $name
+     * @param string|null $name
      */
-    public function __construct(Action $action, $id, $name)
+    private function __construct(Action $action, $id, $name = null)
     {
         $this->action = $action;
         $this->id = $id;
         $this->name = $name;
+    }
+
+    /**
+     * @param string $id
+     * @return Author
+     */
+    public static function createWithDeleteAction($id)
+    {
+        return new self(Action::fromCode(Action::DELETE), $id);
+    }
+
+    /**
+     * @param Action $action
+     * @param string $id
+     * @param string $name
+     * @return Author
+     */
+    public static function createWithAction(Action $action, $id, $name)
+    {
+        return new self($action, $id, $name);
     }
 
     /**
@@ -53,7 +74,7 @@ class Author implements LineInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function name()
     {
@@ -82,10 +103,18 @@ class Author implements LineInterface
      */
     public static function fromLine($line)
     {
-        return new self(
-            Action::fromCode($line[1]),
-            $line[2],
-            $line[3]
+        $action = Action::fromCode($line[1]);
+
+        $id = TypeCast::string($line[2]);
+
+        if ($action->isDelete()) {
+            return self::createWithDeleteAction($id);
+        }
+
+        return self::createWithAction(
+            $action,
+            $id,
+            TypeCast::string($line[3])
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class ArticleIndexTranslation implements LineInterface
 {
@@ -16,7 +17,7 @@ class ArticleIndexTranslation implements LineInterface
     /**
      * @var string
      */
-    private $language;
+    private $languageId;
 
     /**
      * @var int
@@ -31,14 +32,14 @@ class ArticleIndexTranslation implements LineInterface
     /**
      * ArticleIndexTranslation constructor.
      * @param string $articleId
-     * @param string $language
+     * @param string $languageId
      * @param int $count
      * @param string $value
      */
-    public function __construct($articleId, $language, $count, $value)
+    public function __construct($articleId, $languageId, $count, $value)
     {
         $this->articleId = $articleId;
-        $this->language = $language;
+        $this->languageId = $languageId;
         $this->count = $count;
         $this->value = $value;
     }
@@ -54,9 +55,9 @@ class ArticleIndexTranslation implements LineInterface
     /**
      * @return string
      */
-    public function language()
+    public function languageId()
     {
-        return $this->language;
+        return $this->languageId;
     }
 
     /**
@@ -98,10 +99,10 @@ class ArticleIndexTranslation implements LineInterface
     public static function fromLine($line)
     {
         return new self(
-            $line[1],
-            $line[2],
-            $line[3],
-            $line[4]
+            TypeCast::string($line[1]),
+            TypeCast::string($line[2]),
+            TypeCast::integer($line[3]),
+            TypeCast::string($line[4])
         );
     }
 }

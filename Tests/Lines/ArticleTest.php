@@ -15,7 +15,6 @@ class ArticleTest extends TestCase
             'GP4', 'B', '1'
         ]);
 
-        $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals(true, $article->action()->isDelete());
         $this->assertEquals('1', $article->id());
     }
@@ -26,7 +25,6 @@ class ArticleTest extends TestCase
             'GP4', 'A', '1', 'Una historia social del vino ', 'Mees, Ludger; Nagel, Klaus-Jürgen; Puhle, Hans-Jürgen', '4659', '978-84-309-7678-2', '9788430976782', '512', '01', 'EDITORIAL TECNOS', '20190601', '20190701', '    ', '2019', '', '', '0', '20190530', '', '001', '03', '', '', '1', '', 'Rioja, Navarra, Cataluña 1860-1940', '0', '6,00', '28,00', 'L0', '1', '220', '26,92', '', '868', '170', '240', '', '', '', '', '4,00', '', '', '0,00', '', '', '', '', 'N', 'N', '', '', '', '', '', '', 'N'
         ]);
 
-        $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals(true, $article->action()->isAdd());
         $this->assertEquals('Una historia social del vino', $article->title());
         $this->assertCount(3, $article->authors());

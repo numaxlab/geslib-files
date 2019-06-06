@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class ArticleTopic implements LineInterface
 {
@@ -68,8 +69,8 @@ class ArticleTopic implements LineInterface
     public static function fromLine($line)
     {
         return new self(
-            $line[1],
-            $line[2]
+            TypeCast::string($line[1]),
+            TypeCast::string($line[2])
         );
     }
 }

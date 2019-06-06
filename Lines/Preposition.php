@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class Preposition implements LineInterface
 {
@@ -49,7 +50,7 @@ class Preposition implements LineInterface
     public static function fromLine($line)
     {
         return new self(
-            $line[1]
+            TypeCast::string($line[1])
         );
     }
 }

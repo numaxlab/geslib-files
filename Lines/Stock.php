@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class Stock implements LineInterface
 {
@@ -17,6 +18,33 @@ class Stock implements LineInterface
      * @var int
      */
     private $quantity;
+
+    /**
+     * Stock constructor.
+     * @param string $articleId
+     * @param int $quantity
+     */
+    public function __construct($articleId, $quantity)
+    {
+        $this->articleId = $articleId;
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function articleId()
+    {
+        return $this->articleId;
+    }
+
+    /**
+     * @return int
+     */
+    public function quantity()
+    {
+        return $this->quantity;
+    }
 
     /**
      * @return string
@@ -40,6 +68,9 @@ class Stock implements LineInterface
      */
     public static function fromLine($line)
     {
-        return new self();
+        return new self(
+            TypeCast::string($line[1]),
+            TypeCast::integer($line[2])
+        );
     }
 }

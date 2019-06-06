@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class RecordLabel implements LineInterface
 {
@@ -114,10 +115,10 @@ class RecordLabel implements LineInterface
     {
         return new self(
             Action::fromCode($line[1]),
-            $line[2],
-            $line[3],
-            $line[4],
-            $line[5]
+            TypeCast::string($line[2]),
+            TypeCast::string($line[3]),
+            TypeCast::string($line[4]),
+            TypeCast::string($line[5])
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\GeslibFile;
+use NumaxLab\Geslib\TypeCast;
 
 class Collection implements LineInterface
 {
@@ -24,7 +25,7 @@ class Collection implements LineInterface
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
@@ -33,14 +34,36 @@ class Collection implements LineInterface
      * @param Action $action
      * @param string $editorialId
      * @param string $id
-     * @param string $name
+     * @param string|null $name
      */
-    public function __construct(Action $action, $editorialId, $id, $name)
+    private function __construct(Action $action, $editorialId, $id, $name = null)
     {
         $this->action = $action;
         $this->editorialId = $editorialId;
         $this->id = $id;
         $this->name = $name;
+    }
+
+    /**
+     * @param string $editorialId
+     * @param string $id
+     * @return Collection
+     */
+    public static function createWithDeleteAction($editorialId, $id)
+    {
+        return new self(Action::fromCode(Action::DELETE), $editorialId, $id);
+    }
+
+    /**
+     * @param Action $action
+     * @param string $editorialId
+     * @param string $id
+     * @param string $name
+     * @return Collection
+     */
+    public static function createWithAction(Action $action, $editorialId,  $id, $name)
+    {
+        return new self($action, $editorialId, $id, $name);
     }
 
     /**
@@ -68,7 +91,7 @@ class Collection implements LineInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function name()
     {
@@ -97,11 +120,20 @@ class Collection implements LineInterface
      */
     public static function fromLine($line)
     {
-        return new self(
-            Action::fromCode($line[1]),
-            $line[2],
-            $line[3],
-            $line[4]
+        $action = Action::fromCode($line[1]);
+
+        $editorialId = TypeCast::string($line[2]);
+        $id = TypeCast::string($line[3]);
+
+        if ($action->isDelete()) {
+            return self::createWithDeleteAction($editorialId, $id);
+        }
+
+        return self::createWithAction(
+            $action,
+            $editorialId,
+            $id,
+            TypeCast::string($line[4])
         );
     }
 }
