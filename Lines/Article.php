@@ -5,7 +5,6 @@ namespace NumaxLab\Geslib\Lines;
 use Carbon\Carbon;
 use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
-use Stringy\Stringy;
 
 class Article implements LineInterface
 {
@@ -1055,20 +1054,20 @@ class Article implements LineInterface
         }
 
         $authors = [];
-        $line4 = Stringy::create($line[4]);
+        $line4 = trim($line[4]);
 
-        if (! empty($line4->trim())) {
+        if ($line4 !== '') {
             foreach (explode(';', $line4) as $lineAuthor) {
-                $authors[] = Stringy::create($lineAuthor)->trim();
+                $authors[] = trim($lineAuthor);
             }
         }
 
         $edition = null;
-        $line9 = Stringy::create($line[9]);
+        $line9 = trim($line[9]);
 
-        if (! empty($line9->trim())) {
+        if ($line9 !== '') {
             $edition = new Edition(
-                $line9->trim(),
+                $line9,
                 TypeCast::string($line[10]),
                 TypeCast::carbon($line[11]),
                 TypeCast::carbon($line[12])
