@@ -14,22 +14,13 @@ class Parser
      */
     private $endOfLine;
 
-    /**
-     * Parser constructor.
-     * @param GeslibFile $file
-     * @param string $eol
-     */
-    public function __construct(GeslibFile $file, $eol)
+    public function __construct(GeslibFile $file, string $eol)
     {
         $this->file = $file;
         $this->endOfLine = $eol;
     }
 
-    /**
-     * @param string $input
-     * @return GeslibFile
-     */
-    public function parse($input)
+    public function parse(string $input): GeslibFile
     {
         $lines = explode($this->endOfLine, $input);
 

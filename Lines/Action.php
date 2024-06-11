@@ -15,20 +15,12 @@ class Action
      */
     private $code;
 
-    /**
-     * Action constructor.
-     * @param string $code
-     */
-    private function __construct($code)
+    private function __construct(string $code)
     {
         $this->code = $code;
     }
 
-    /**
-     * @param $code
-     * @return Action
-     */
-    public static function fromCode($code)
+    public static function fromCode(string $code): Action
     {
         if ($code === self::ADD) {
             return new self(self::ADD);
@@ -45,34 +37,22 @@ class Action
         throw new InvalidActionException(sprintf('Invalid action with code %s', $code));
     }
 
-    /**
-     * @return string
-     */
-    public function code()
+    public function code(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return bool
-     */
-    public function isAdd()
+    public function isAdd(): bool
     {
         return $this->code === self::ADD;
     }
 
-    /**
-     * @return bool
-     */
-    public function isDelete()
+    public function isDelete(): bool
     {
         return $this->code === self::DELETE;
     }
 
-    /**
-     * @return bool
-     */
-    public function isModify()
+    public function isModify(): bool
     {
         return $this->code === self::MODIFY;
     }

@@ -18,56 +18,36 @@ class GeslibFile
      */
     private $lines;
 
-    /**
-     * GeslibFile constructor.
-     */
     public function __construct()
     {
         $this->isInitialFile = false;
         $this->lines = [];
     }
 
-    /**
-     *
-     */
+    public static function parse(string $input, string $eol = PHP_EOL): GeslibFile
+    {
+        $parser = new Parser(new self(), $eol);
+
+        return $parser->parse($input);
+    }
+
     public function setAsInitialFile()
     {
         $this->isInitialFile = true;
     }
 
-    /**
-     * @param LineInterface $line
-     */
     public function addLine(LineInterface $line)
     {
         $this->lines[] = $line;
     }
 
-    /**
-     * @return bool
-     */
-    public function isInitialFile()
+    public function isInitialFile(): bool
     {
         return $this->isInitialFile;
     }
 
-    /**
-     * @return array
-     */
-    public function lines()
+    public function lines(): array
     {
         return $this->lines;
-    }
-
-    /**
-     * @param string $input
-     * @param string $eol
-     * @return GeslibFile
-     */
-    public static function parse($input, $eol = PHP_EOL)
-    {
-        $parser = new Parser(new self(), $eol);
-
-        return $parser->parse($input);
     }
 }

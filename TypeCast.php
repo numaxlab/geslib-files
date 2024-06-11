@@ -3,14 +3,11 @@
 namespace NumaxLab\Geslib;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 class TypeCast
 {
-    /**
-     * @param string $value
-     * @return null|string
-     */
-    public static function string($value)
+    public static function string(string $value): ?string
     {
         $value = trim($value);
 
@@ -21,11 +18,7 @@ class TypeCast
         return $value;
     }
 
-    /**
-     * @param string $value
-     * @return int|null
-     */
-    public static function integer($value)
+    public static function integer(string $value): ?int
     {
         $value = trim($value);
 
@@ -33,23 +26,15 @@ class TypeCast
             return null;
         }
 
-        return (int) $value;
+        return (int)$value;
     }
 
-    /**
-     * @param string $value
-     * @return bool
-     */
-    public static function boolean($value)
+    public static function boolean(string $value): bool
     {
         return $value === 'S';
     }
 
-    /**
-     * @param string $value
-     * @return int|null
-     */
-    public static function integerMoney($value)
+    public static function integerMoney(string $value): ?int
     {
         $value = trim($value);
 
@@ -57,14 +42,10 @@ class TypeCast
             return null;
         }
 
-        return (int) str_replace(',', '', $value);
+        return (int)str_replace(',', '', $value);
     }
 
-    /**
-     * @param string $value
-     * @return \Carbon\CarbonInterface|null
-     */
-    public static function carbon($value)
+    public static function carbon(string $value): ?CarbonInterface
     {
         $value = trim($value);
 
