@@ -4,7 +4,4 @@ namespace NumaxLab\Geslib\Exceptions;
 
 use RuntimeException;
 
-class InvalidAuthorTypeException extends RuntimeException
-{
-
-}
+final class InvalidAuthorTypeException extends RuntimeException {}

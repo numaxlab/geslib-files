@@ -4,7 +4,4 @@ namespace NumaxLab\Geslib\Exceptions;
 
 use RuntimeException;
 
-class InvalidActionException extends RuntimeException
-{
-
-}
+final class InvalidActionException extends RuntimeException {}

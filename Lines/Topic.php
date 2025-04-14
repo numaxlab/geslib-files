@@ -2,48 +2,25 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Topic implements LineInterface
+final class Topic implements LineInterface
 {
-    const CODE = '3';
+    public const CODE = '3';
 
-    /**
-     * @var Action
-     */
-    private $action;
+    private readonly Action $action;
+    private readonly string $id;
+    private ?string $description;
+    private ?string $descriptionEs;
+    private ?string $descriptionEn;
 
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @var string
-     */
-    private $descriptionEs;
-
-    /**
-     * @var string
-     */
-    private $descriptionEn;
-
-    /**
-     * Topic constructor.
-     * @param Action $action
-     * @param string $id
-     * @param string $description
-     * @param string $descriptionEs
-     * @param string $descriptionEn
-     */
-    private function __construct(Action $action, $id, $description = null, $descriptionEs = null, $descriptionEn = null)
-    {
+    private function __construct(
+        Action $action,
+        string $id,
+        ?string $description = null,
+        ?string $descriptionEs = null,
+        ?string $descriptionEn = null,
+    ) {
         $this->action = $action;
         $this->id = $id;
         $this->description = $description;
@@ -51,92 +28,14 @@ class Topic implements LineInterface
         $this->descriptionEn = $descriptionEn;
     }
 
-    /**
-     * @param $id
-     * @return Topic
-     */
-    private static function createWithDeleteAction($id)
-    {
-        return new self(Action::fromCode(Action::DELETE), $id);
-    }
-
-    /**
-     * @param Action $action
-     * @param $id
-     * @param $description
-     * @param $descriptionEs
-     * @param $descriptionEn
-     * @return Topic
-     */
-    private static function createWithAction(Action $action, $id, $description, $descriptionEs, $descriptionEn)
-    {
-        return new self($action, $id, $description, $descriptionEs, $descriptionEn);
-    }
-
-    /**
-     * @return Action
-     */
-    public function action()
-    {
-        return $this->action;
-    }
-
-    /**
-     * @return string
-     */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function description()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public function descriptionEs()
-    {
-        return $this->descriptionEs;
-    }
-
-    /**
-     * @return string
-     */
-    public function descriptionEn()
-    {
-        return $this->descriptionEn;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         $action = Action::fromCode($line[1]);
-
         $id = TypeCast::string($line[2]);
 
         if ($action->isDelete()) {
@@ -148,7 +47,47 @@ class Topic implements LineInterface
             $id,
             TypeCast::string($line[3]),
             TypeCast::string($line[4]),
-            TypeCast::string($line[5])
+            TypeCast::string($line[5]),
         );
+    }
+
+    private static function createWithDeleteAction(string $id): self
+    {
+        return new self(Action::fromCode(Action::DELETE), $id);
+    }
+
+    private static function createWithAction(
+        Action $action,
+        string $id,
+        ?string $description,
+        ?string $descriptionEs,
+        ?string $descriptionEn,
+    ): self {
+        return new self($action, $id, $description, $descriptionEs, $descriptionEn);
+    }
+
+    public function action(): Action
+    {
+        return $this->action;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function description(): ?string
+    {
+        return $this->description;
+    }
+
+    public function descriptionEs(): ?string
+    {
+        return $this->descriptionEs;
+    }
+
+    public function descriptionEn(): ?string
+    {
+        return $this->descriptionEn;
     }
 }

@@ -2,75 +2,41 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class ArticleTopic implements LineInterface
+final class ArticleTopic implements LineInterface
 {
-    const CODE = '5';
+    public const CODE = '5';
 
-    /**
-     * @var string
-     */
-    private $topicId;
+    private readonly string $topicId;
+    private readonly string $articleId;
 
-    /**
-     * @var string
-     */
-    private $articleId;
-
-    /**
-     * ArticleTopic constructor.
-     * @param string $topicId
-     * @param string $articleId
-     */
-    public function __construct($topicId, $articleId)
+    public function __construct(string $topicId, string $articleId)
     {
         $this->topicId = $topicId;
         $this->articleId = $articleId;
     }
 
-    /**
-     * @return string
-     */
-    public function topicId()
-    {
-        return $this->topicId;
-    }
-
-    /**
-     * @return string
-     */
-    public function articleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
-            TypeCast::string($line[2])
+            TypeCast::string($line[2]),
         );
+    }
+
+    public function topicId(): string
+    {
+        return $this->topicId;
+    }
+
+    public function articleId(): string
+    {
+        return $this->articleId;
     }
 }

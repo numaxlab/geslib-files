@@ -2,75 +2,41 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class AuthorBiography implements LineInterface
+final class AuthorBiography implements LineInterface
 {
-    const CODE = 'AUTBIO';
+    public const CODE = 'AUTBIO';
 
-    /**
-     * @var string
-     */
-    private $authorId;
+    private readonly string $authorId;
+    private readonly string $biography;
 
-    /**
-     * @var string
-     */
-    private $biography;
-
-    /**
-     * AuthorBiography constructor.
-     * @param string $authorId
-     * @param string $biography
-     */
-    public function __construct($authorId, $biography)
+    public function __construct(string $authorId, string $biography)
     {
         $this->authorId = $authorId;
         $this->biography = $biography;
     }
 
-    /**
-     * @return string
-     */
-    public function authorId()
-    {
-        return $this->authorId;
-    }
-
-    /**
-     * @return string
-     */
-    public function biography()
-    {
-        return $this->biography;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
-            TypeCast::string($line[2])
+            TypeCast::string($line[2]),
         );
+    }
+
+    public function authorId(): string
+    {
+        return $this->authorId;
+    }
+
+    public function biography(): string
+    {
+        return $this->biography;
     }
 }

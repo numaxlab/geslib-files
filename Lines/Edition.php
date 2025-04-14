@@ -4,71 +4,41 @@ namespace NumaxLab\Geslib\Lines;
 
 use Carbon\Carbon;
 
-class Edition
+final class Edition
 {
-    /**
-     * @var string
-     */
-    private $number;
+    private readonly string $number;
+    private ?string $editorial;
+    private ?Carbon $date;
+    private ?Carbon $reEditionDate;
 
-    /**
-     * @var string|null
-     */
-    private $editorial;
-
-    /**
-     * @var Carbon|null
-     */
-    private $date;
-
-    /**
-     * @var Carbon|null
-     */
-    private $reEditionDate;
-
-    /**
-     * Edition constructor.
-     * @param string $number
-     * @param string|null $editorial
-     * @param Carbon|null $date
-     * @param Carbon|null $reEditionDate
-     */
-    public function __construct($number, $editorial = null, $date = null, $reEditionDate = null)
-    {
+    public function __construct(
+        string $number,
+        ?string $editorial = null,
+        ?Carbon $date = null,
+        ?Carbon $reEditionDate = null,
+    ) {
         $this->number = $number;
         $this->editorial = $editorial;
         $this->date = $date;
         $this->reEditionDate = $reEditionDate;
     }
 
-    /**
-     * @return string
-     */
-    public function number()
+    public function number(): string
     {
         return $this->number;
     }
 
-    /**
-     * @return null|string
-     */
-    public function editorial()
+    public function editorial(): ?string
     {
         return $this->editorial;
     }
 
-    /**
-     * @return Carbon|null
-     */
-    public function date()
+    public function date(): ?Carbon
     {
         return $this->date;
     }
 
-    /**
-     * @return Carbon|null
-     */
-    public function reEditionDate()
+    public function reEditionDate(): ?Carbon
     {
         return $this->reEditionDate;
     }

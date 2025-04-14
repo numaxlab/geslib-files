@@ -2,109 +2,31 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Author implements LineInterface
+final class Author implements LineInterface
 {
-    const CODE = 'AUT';
+    public const CODE = 'AUT';
 
-    /**
-     * @var Action
-     */
-    private $action;
+    private readonly Action $action;
+    private readonly string $id;
+    private ?string $name;
 
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * Author constructor.
-     * @param Action $action
-     * @param string $id
-     * @param string|null $name
-     */
-    private function __construct(Action $action, $id, $name = null)
+    private function __construct(Action $action, string $id, ?string $name = null)
     {
         $this->action = $action;
         $this->id = $id;
         $this->name = $name;
     }
 
-    /**
-     * @param string $id
-     * @return Author
-     */
-    public static function createWithDeleteAction($id)
-    {
-        return new self(Action::fromCode(Action::DELETE), $id);
-    }
-
-    /**
-     * @param Action $action
-     * @param string $id
-     * @param string $name
-     * @return Author
-     */
-    public static function createWithAction(Action $action, $id, $name)
-    {
-        return new self($action, $id, $name);
-    }
-
-    /**
-     * @return Action
-     */
-    public function action()
-    {
-        return $this->action;
-    }
-
-    /**
-     * @return string
-     */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function name()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         $action = Action::fromCode($line[1]);
-
         $id = TypeCast::string($line[2]);
 
         if ($action->isDelete()) {
@@ -114,7 +36,32 @@ class Author implements LineInterface
         return self::createWithAction(
             $action,
             $id,
-            TypeCast::string($line[3])
+            TypeCast::string($line[3]),
         );
+    }
+
+    public static function createWithDeleteAction(string $id): self
+    {
+        return new self(Action::fromCode(Action::DELETE), $id);
+    }
+
+    public static function createWithAction(Action $action, string $id, ?string $name): self
+    {
+        return new self($action, $id, $name);
+    }
+
+    public function action(): Action
+    {
+        return $this->action;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function name(): ?string
+    {
+        return $this->name;
     }
 }

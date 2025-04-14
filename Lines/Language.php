@@ -2,75 +2,41 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Language implements LineInterface
+final class Language implements LineInterface
 {
-    const CODE = '8';
+    public const CODE = '8';
 
-    /**
-     * @var string
-     */
-    private $id;
+    private readonly string $id;
+    private readonly string $name;
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * Language constructor.
-     * @param string $id
-     * @param string $name
-     */
-    public function __construct($id, $name)
+    public function __construct(string $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function name()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
-            TypeCast::string($line[2])
+            TypeCast::string($line[2]),
         );
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 }

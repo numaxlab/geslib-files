@@ -4,39 +4,26 @@ namespace NumaxLab\Geslib;
 
 use NumaxLab\Geslib\Lines\LineInterface;
 
-class GeslibFile
+final class GeslibFile
 {
-    const FIELD_SEPARATOR = '|';
+    public const FIELD_SEPARATOR = '|';
 
-    /**
-     * @var bool
-     */
-    private $isInitialFile;
+    private bool $isInitialFile = false;
+    private array $lines = [];
 
-    /**
-     * @var array
-     */
-    private $lines;
-
-    public function __construct()
-    {
-        $this->isInitialFile = false;
-        $this->lines = [];
-    }
-
-    public static function parse(string $input, string $eol = PHP_EOL): GeslibFile
+    public static function parse(string $input, string $eol = PHP_EOL): self
     {
         $parser = new Parser(new self(), $eol);
 
         return $parser->parse($input);
     }
 
-    public function setAsInitialFile()
+    public function setAsInitialFile(): void
     {
         $this->isInitialFile = true;
     }
 
-    public function addLine(LineInterface $line)
+    public function addLine(LineInterface $line): void
     {
         $this->lines[] = $line;
     }

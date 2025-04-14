@@ -2,41 +2,18 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class BookshopReferenceTranslation implements LineInterface
+final class BookshopReferenceTranslation implements LineInterface
 {
-    const CODE = '6T';
+    public const CODE = '6T';
 
-    /**
-     * @var string
-     */
-    private $articleId;
+    private readonly string $articleId;
+    private readonly string $languageId;
+    private readonly int $count;
+    private readonly string $value;
 
-    /**
-     * @var string
-     */
-    private $languageId;
-
-    /**
-     * @var int
-     */
-    private $count;
-
-    /**
-     * @var string
-     */
-    private $value;
-
-    /**
-     * BookshopReferenceTranslation constructor.
-     * @param string $articleId
-     * @param string $languageId
-     * @param int $count
-     * @param string $value
-     */
-    public function __construct($articleId, $languageId, $count, $value)
+    public function __construct(string $articleId, string $languageId, int $count, string $value)
     {
         $this->articleId = $articleId;
         $this->languageId = $languageId;
@@ -44,65 +21,38 @@ class BookshopReferenceTranslation implements LineInterface
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
-    public function articleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @return string
-     */
-    public function languageId()
-    {
-        return $this->languageId;
-    }
-
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->count;
-    }
-
-    /**
-     * @return string
-     */
-    public function value()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
             TypeCast::string($line[2]),
             TypeCast::integer($line[3]),
-            TypeCast::string($line[4])
+            TypeCast::string($line[4]),
         );
+    }
+
+    public function articleId(): string
+    {
+        return $this->articleId;
+    }
+
+    public function languageId(): string
+    {
+        return $this->languageId;
+    }
+
+    public function count(): int
+    {
+        return $this->count;
+    }
+
+    public function value(): string
+    {
+        return $this->value;
     }
 }

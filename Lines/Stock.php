@@ -2,75 +2,41 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Stock implements LineInterface
+final class Stock implements LineInterface
 {
-    const CODE = 'B';
+    public const CODE = 'B';
 
-    /**
-     * @var string
-     */
-    private $articleId;
+    private readonly string $articleId;
+    private readonly int $quantity;
 
-    /**
-     * @var int
-     */
-    private $quantity;
-
-    /**
-     * Stock constructor.
-     * @param string $articleId
-     * @param int $quantity
-     */
-    public function __construct($articleId, $quantity)
+    public function __construct(string $articleId, int $quantity)
     {
         $this->articleId = $articleId;
         $this->quantity = $quantity;
     }
 
-    /**
-     * @return string
-     */
-    public function articleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @return int
-     */
-    public function quantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
-            TypeCast::integer($line[2])
+            TypeCast::integer($line[2]),
         );
+    }
+
+    public function articleId(): string
+    {
+        return $this->articleId;
+    }
+
+    public function quantity(): int
+    {
+        return $this->quantity;
     }
 }

@@ -3,328 +3,65 @@
 namespace NumaxLab\Geslib\Lines;
 
 use Carbon\Carbon;
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
 class Article implements LineInterface
 {
     const CODE = 'GP4';
 
-    /**
-     * @var Action
-     */
-    private $action;
+    private readonly Action $action;
+    private readonly string $id;
+    private readonly ?string $title;
+    private readonly ?array $authors;
+    private readonly ?string $isbn;
+    private readonly ?string $ean;
+    private readonly ?int $pagesQty;
+    private readonly ?Edition $edition;
+    private readonly ?int $firstEditionYear;
+    private readonly ?int $lastEditionYear;
+    private readonly ?string $location;
+    private readonly ?int $stock;
+    private readonly ?string $topicId;
+    private readonly ?Carbon $createdAt;
+    private readonly ?Carbon $noveltyDate;
+    private readonly ?string $languageId;
+    private readonly ?string $formatId;
+    private readonly ?string $translator;
+    private readonly ?string $illustrator;
+    private readonly ?string $collectionId;
+    private readonly ?string $collectionNumber;
+    private readonly ?string $subtitle;
+    private readonly ?string $statusId;
+    private readonly ?int $tmr;
+    private readonly ?int $retailPrice;
+    private readonly ?string $typeId;
+    private readonly ?string $classificationId;
+    private readonly ?string $editorialId;
+    private readonly ?int $priceWithoutTaxes;
+    private readonly ?int $illustrationsQty;
+    private readonly ?int $weight;
+    private readonly ?int $width;
+    private readonly ?int $height;
+    private readonly ?Carbon $appearanceDate;
+    private readonly ?string $externalDescription;
+    private readonly ?string $tags;
+    private readonly ?string $altLocation;
+    private readonly ?int $taxes;
+    private readonly ?string $rating;
+    private readonly ?string $literaryQuality;
+    private readonly ?int $referencePrice;
+    private readonly ?string $cdu;
+    private readonly ?string $freeField1;
+    private readonly ?string $freeField2;
+    private readonly ?bool $wasAwarded;
+    private readonly ?bool $isPod;
+    private readonly ?string $podDistributor;
+    private readonly ?string $oldCode;
+    private readonly ?string $size;
+    private readonly ?string $color;
+    private readonly ?string $originalLanguageId;
+    private readonly ?string $originalTitle;
 
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string|null
-     */
-    private $title;
-
-    /**
-     * @var array|null
-     */
-    private $authors;
-
-    /**
-     * @var string|null
-     */
-    private $isbn;
-
-    /**
-     * @var string|null
-     */
-    private $ean;
-
-    /**
-     * @var int|null
-     */
-    private $pagesQty;
-
-    /**
-     * @var Edition|null
-     */
-    private $edition;
-
-    /**
-     * @var int|null
-     */
-    private $firstEditionYear;
-
-    /**
-     * @var int|null
-     */
-    private $lastEditionYear;
-
-    /**
-     * @var string|null
-     */
-    private $location;
-
-    /**
-     * @var int|null
-     */
-    private $stock;
-
-    /**
-     * @var string|null
-     */
-    private $topicId;
-
-    /**
-     * @var Carbon|null
-     */
-    private $createdAt;
-
-    /**
-     * @var Carbon|null
-     */
-    private $noveltyDate;
-
-    /**
-     * @var string|null
-     */
-    private $languageId;
-
-    /**
-     * @var string|null
-     */
-    private $formatId;
-
-    /**
-     * @var string|null
-     */
-    private $translator;
-
-    /**
-     * @var string|null
-     */
-    private $illustrator;
-
-    /**
-     * @var string|null
-     */
-    private $collectionId;
-
-    /**
-     * @var string|null
-     */
-    private $collectionNumber;
-
-    /**
-     * @var string|null
-     */
-    private $subtitle;
-
-    /**
-     * @var string|null
-     */
-    private $statusId;
-
-    /**
-     * @var int|null
-     */
-    private $tmr;
-
-    /**
-     * @var int|null
-     */
-    private $retailPrice;
-
-    /**
-     * @var string|null
-     */
-    private $typeId;
-
-    /**
-     * @var string|null
-     */
-    private $classificationId;
-
-    /**
-     * @var string|null
-     */
-    private $editorialId;
-
-    /**
-     * @var int|null
-     */
-    private $priceWithoutTaxes;
-
-    /**
-     * @var int|null
-     */
-    private $illustrationsQty;
-
-    /**
-     * @var int|null
-     */
-    private $weight;
-
-    /**
-     * @var int|null
-     */
-    private $width;
-
-    /**
-     * @var int|null
-     */
-    private $height;
-
-    /**
-     * @var Carbon|null
-     */
-    private $appearanceDate;
-
-    /**
-     * @var string|null
-     */
-    private $externalDescription;
-
-    /**
-     * @var string|null
-     */
-    private $tags;
-
-    /**
-     * @var string|null
-     */
-    private $altLocation;
-
-    /**
-     * @var int|null
-     */
-    private $taxes;
-
-    /**
-     * @var string|null
-     */
-    private $rating;
-
-    /**
-     * @var string|null
-     */
-    private $literaryQuality;
-
-    /**
-     * @var int|null
-     */
-    private $referencePrice;
-
-    /**
-     * @var string|null
-     */
-    private $cdu;
-
-    /**
-     * @var string|null
-     */
-    private $freeField1;
-
-    /**
-     * @var string|null
-     */
-    private $freeField2;
-
-    /**
-     * @var bool|null
-     */
-    private $wasAwarded;
-
-    /**
-     * @var bool|null
-     */
-    private $isPod;
-
-    /**
-     * @var string|null
-     */
-    private $podDistributor;
-
-    /**
-     * @var string|null
-     */
-    private $oldCode;
-
-    /**
-     * @var string|null
-     */
-    private $size;
-
-    /**
-     * @var string|null
-     */
-    private $color;
-
-    /**
-     * @var string|null
-     */
-    private $originalLanguageId;
-
-    /**
-     * @var string|null
-     */
-    private $originalTitle;
-
-    /**
-     * Article constructor.
-     * @param Action $action
-     * @param string $id
-     * @param string|null $title
-     * @param array $authors
-     * @param string|null $isbn
-     * @param string|null $ean
-     * @param int|null $pagesQty
-     * @param Edition|null $edition
-     * @param int|null $firstEditionYear
-     * @param int|null $lastEditionYear
-     * @param string|null $location
-     * @param int|null $stock
-     * @param string|null $topicId
-     * @param Carbon|null $createdAt
-     * @param Carbon|null $noveltyDate
-     * @param string|null $languageId
-     * @param string|null $formatId
-     * @param string|null $translator
-     * @param string|null $illustrator
-     * @param string|null $collectionId
-     * @param string|null $collectionNumber
-     * @param string|null $subtitle
-     * @param string|null $statusId
-     * @param int|null $tmr
-     * @param int|null $retailPrice
-     * @param string|null $typeId
-     * @param string|null $classificationId
-     * @param string|null $editorialId
-     * @param string|null $priceWithoutTaxes
-     * @param int|null $illustrationsQty
-     * @param int|null $weight
-     * @param int|null $width
-     * @param int|null $height
-     * @param Carbon|null $appearanceDate
-     * @param string|null $externalDescription
-     * @param string|null $tags
-     * @param string|null $altLocation
-     * @param int|null $taxes
-     * @param string|null $rating
-     * @param string|null $literaryQuality
-     * @param int|null $referencePrice
-     * @param string|null $cdu
-     * @param string|null $freeField1
-     * @param string|null $freeField2
-     * @param bool|null $wasAwarded
-     * @param bool|null $isPod
-     * @param string|null $podDistributor
-     * @param string|null $oldCode
-     * @param string|null $size
-     * @param string|null $color
-     * @param string|null $originalLanguageId
-     * @param string|null $originalTitle
-     */
     private function __construct(
         Action $action,
         string $id,
@@ -377,7 +114,7 @@ class Article implements LineInterface
         string $size = null,
         string $color = null,
         string $originalLanguageId = null,
-        string $originalTitle = null
+        string $originalTitle = null,
     ) {
         $this->action = $action;
         $this->id = $id;
@@ -438,7 +175,7 @@ class Article implements LineInterface
         return self::CODE;
     }
 
-    public static function fromLine($line): Article
+    public static function fromLine($line): self
     {
         $action = Action::fromCode($line[1]);
 
@@ -465,7 +202,7 @@ class Article implements LineInterface
                 $line9,
                 TypeCast::string($line[10]),
                 TypeCast::carbon($line[11]),
-                TypeCast::carbon($line[12])
+                TypeCast::carbon($line[12]),
             );
         }
 
@@ -521,11 +258,11 @@ class Article implements LineInterface
             TypeCast::string($line[54]),
             TypeCast::string($line[55]),
             TypeCast::string($line[56]),
-            TypeCast::string($line[57])
+            TypeCast::string($line[57]),
         );
     }
 
-    public static function createWithDeleteAction($id): Article
+    public static function createWithDeleteAction($id): self
     {
         return new self(Action::fromCode(Action::DELETE), $id);
     }
@@ -582,8 +319,8 @@ class Article implements LineInterface
         $size,
         $color,
         $originalLanguageId,
-        $originalTitle
-    ): Article {
+        $originalTitle,
+    ): self {
         return new self(
             $action,
             $id,
@@ -636,7 +373,7 @@ class Article implements LineInterface
             $size,
             $color,
             $originalLanguageId,
-            $originalTitle
+            $originalTitle,
         );
     }
 
@@ -898,10 +635,5 @@ class Article implements LineInterface
     public function originalTitle(): ?string
     {
         return $this->originalTitle;
-    }
-
-    public function toLine(): string
-    {
-        return self::CODE . GeslibFile::FIELD_SEPARATOR;
     }
 }

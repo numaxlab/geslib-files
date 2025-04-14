@@ -2,55 +2,33 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Preposition implements LineInterface
+final class Preposition implements LineInterface
 {
-    const CODE = '9';
+    public const CODE = '9';
 
-    /**
-     * @var string
-     */
-    private $value;
+    private readonly string $value;
 
-    public function __construct($value)
+    public function __construct(string $value)
     {
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
-    public function value()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
-            TypeCast::string($line[1])
+            TypeCast::string($line[1]),
         );
+    }
+
+    public function value(): string
+    {
+        return $this->value;
     }
 }

@@ -2,126 +2,37 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Collection implements LineInterface
+final class Collection implements LineInterface
 {
-    const CODE = '2';
+    public const CODE = '2';
 
-    /**
-     * @var Action
-     */
-    private $action;
+    private readonly Action $action;
+    private readonly string $editorialId;
+    private readonly string $id;
+    private readonly ?string $name;
 
-    /**
-     * @var string
-     */
-    private $editorialId;
-
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * Collection constructor.
-     * @param Action $action
-     * @param string $editorialId
-     * @param string $id
-     * @param string|null $name
-     */
-    private function __construct(Action $action, $editorialId, $id, $name = null)
-    {
+    private function __construct(
+        Action $action,
+        string $editorialId,
+        string $id,
+        ?string $name = null,
+    ) {
         $this->action = $action;
         $this->editorialId = $editorialId;
         $this->id = $id;
         $this->name = $name;
     }
 
-    /**
-     * @param string $editorialId
-     * @param string $id
-     * @return Collection
-     */
-    public static function createWithDeleteAction($editorialId, $id)
-    {
-        return new self(Action::fromCode(Action::DELETE), $editorialId, $id);
-    }
-
-    /**
-     * @param Action $action
-     * @param string $editorialId
-     * @param string $id
-     * @param string $name
-     * @return Collection
-     */
-    public static function createWithAction(Action $action, $editorialId,  $id, $name)
-    {
-        return new self($action, $editorialId, $id, $name);
-    }
-
-    /**
-     * @return Action
-     */
-    public function action()
-    {
-        return $this->action;
-    }
-
-    /**
-     * @return string
-     */
-    public function editorialId()
-    {
-        return $this->editorialId;
-    }
-
-    /**
-     * @return string
-     */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function name()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         $action = Action::fromCode($line[1]);
-
         $editorialId = TypeCast::string($line[2]);
         $id = TypeCast::string($line[3]);
 
@@ -133,7 +44,41 @@ class Collection implements LineInterface
             $action,
             $editorialId,
             $id,
-            TypeCast::string($line[4])
+            TypeCast::string($line[4]),
         );
+    }
+
+    public static function createWithDeleteAction(string $editorialId, string $id): self
+    {
+        return new self(Action::fromCode(Action::DELETE), $editorialId, $id);
+    }
+
+    public static function createWithAction(
+        Action $action,
+        string $editorialId,
+        string $id,
+        ?string $name,
+    ): self {
+        return new self($action, $editorialId, $id, $name);
+    }
+
+    public function action(): Action
+    {
+        return $this->action;
+    }
+
+    public function editorialId(): string
+    {
+        return $this->editorialId;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function name(): ?string
+    {
+        return $this->name;
     }
 }

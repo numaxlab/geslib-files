@@ -2,48 +2,91 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
-
-class EbookInfo implements LineInterface
+final class EbookInfo implements LineInterface
 {
-    const CODE = 'IEB';
+    public const CODE = 'IEB';
 
-    private $articleId;
+    private readonly string $articleId;
+    private readonly string $providerReference;
+    private readonly string $trevenqueReference;
+    private readonly string $size;
+    private readonly string $license;
+    private readonly string $url;
+    private readonly int $downloadsQty;
 
-    private $providerReference;
+    public function __construct(
+        string $articleId,
+        string $providerReference,
+        string $trevenqueReference,
+        string $size,
+        string $license,
+        string $url,
+        int $downloadsQty,
+    ) {
+        $this->articleId = $articleId;
+        $this->providerReference = $providerReference;
+        $this->trevenqueReference = $trevenqueReference;
+        $this->size = $size;
+        $this->license = $license;
+        $this->url = $url;
+        $this->downloadsQty = $downloadsQty;
+    }
 
-    private $trevenqueReference;
-
-    private $size;
-
-    private $license;
-
-    private $url;
-
-    private $downloadsQty;
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
+    public static function fromLine(array $line): self
     {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
+        return new self(
+            $line[1],
+            $line[2],
+            $line[3],
+            $line[4],
+            $line[5],
+            $line[6],
+            (int)$line[7],
+        );
     }
 
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function code(): string
     {
-        // TODO: Implement fromLine() method.
+        return self::CODE;
+    }
+
+    public function articleId(): string
+    {
+        return $this->articleId;
+    }
+
+    public function providerReference(): string
+    {
+        return $this->providerReference;
+    }
+
+    public function trevenqueReference(): string
+    {
+        return $this->trevenqueReference;
+    }
+
+    public function size(): string
+    {
+        return $this->size;
+    }
+
+    public function license(): string
+    {
+        return $this->license;
+    }
+
+    public function url(): string
+    {
+        return $this->url;
+    }
+
+    public function downloadsQty(): int
+    {
+        return $this->downloadsQty;
     }
 }

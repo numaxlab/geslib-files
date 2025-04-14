@@ -2,48 +2,25 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class RecordLabel implements LineInterface
+final class RecordLabel implements LineInterface
 {
-    const CODE = '1A';
+    public const CODE = '1A';
 
-    /**
-     * @var Action
-     */
-    private $action;
+    private readonly Action $action;
+    private readonly string $id;
+    private ?string $name;
+    private ?string $externalName;
+    private ?string $country;
 
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $externalName;
-
-    /**
-     * @var string
-     */
-    private $country;
-
-    /**
-     * RecordLabel constructor.
-     * @param Action $action
-     * @param string $id
-     * @param string $name
-     * @param string $externalName
-     * @param string $country
-     */
-    public function __construct(Action $action, $id, $name, $externalName, $country)
-    {
+    public function __construct(
+        Action $action,
+        string $id,
+        ?string $name = null,
+        ?string $externalName = null,
+        ?string $country = null,
+    ) {
         $this->action = $action;
         $this->id = $id;
         $this->name = $name;
@@ -51,74 +28,44 @@ class RecordLabel implements LineInterface
         $this->country = $country;
     }
 
-    /**
-     * @return Action
-     */
-    public function action()
-    {
-        return $this->action;
-    }
-
-    /**
-     * @return string
-     */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function name()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function externalName()
-    {
-        return $this->externalName;
-    }
-
-    /**
-     * @return string
-     */
-    public function country()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             Action::fromCode($line[1]),
             TypeCast::string($line[2]),
             TypeCast::string($line[3]),
             TypeCast::string($line[4]),
-            TypeCast::string($line[5])
+            TypeCast::string($line[5]),
         );
+    }
+
+    public function action(): Action
+    {
+        return $this->action;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function name(): ?string
+    {
+        return $this->name;
+    }
+
+    public function externalName(): ?string
+    {
+        return $this->externalName;
+    }
+
+    public function country(): ?string
+    {
+        return $this->country;
     }
 }

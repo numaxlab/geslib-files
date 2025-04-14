@@ -2,91 +2,49 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class Ibic implements LineInterface
+final class Ibic implements LineInterface
 {
-    const CODE = 'BIC';
+    public const CODE = 'BIC';
 
-    /**
-     * @var string
-     */
-    private $articleId;
+    private readonly string $articleId;
+    private readonly string $code;
+    private readonly string $description;
 
-    /**
-     * @var string
-     */
-    private $code;
-
-    /**
-     * @var string
-     */
-    private $description;
-
-    /**
-     * Ibic constructor.
-     * @param $articleId
-     * @param $code
-     * @param $description
-     */
-    public function __construct($articleId, $code, $description)
+    public function __construct(string $articleId, string $code, string $description)
     {
         $this->articleId = $articleId;
         $this->code = $code;
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function articleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @return string
-     */
-    public function code()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @return string
-     */
-    public function description()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
             TypeCast::string($line[2]),
-            TypeCast::string($line[3])
+            TypeCast::string($line[3]),
         );
+    }
+
+    public function articleId(): string
+    {
+        return $this->articleId;
+    }
+
+    public function code(): string
+    {
+        return $this->code;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
     }
 }

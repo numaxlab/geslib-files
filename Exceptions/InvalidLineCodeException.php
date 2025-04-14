@@ -4,7 +4,4 @@ namespace NumaxLab\Geslib\Exceptions;
 
 use RuntimeException;
 
-class InvalidLineCodeException extends RuntimeException
-{
-
-}
+final class InvalidLineCodeException extends RuntimeException {}

@@ -5,7 +5,7 @@ namespace NumaxLab\Geslib;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 
-class TypeCast
+final class TypeCast
 {
     public static function string(string $value): ?string
     {

@@ -2,42 +2,35 @@
 
 namespace NumaxLab\Geslib;
 
-class Parser
+final readonly class Parser
 {
-    /**
-     * @var GeslibFile
-     */
-    private $file;
+    private GeslibFile $file;
+    private string $eol;
 
-    /**
-     * @var string
-     */
-    private $endOfLine;
-
-    public function __construct(GeslibFile $file, string $eol)
+    public function __construct(GeslibFile $file, string $eol = PHP_EOL)
     {
         $this->file = $file;
-        $this->endOfLine = $eol;
+        $this->eol = $eol;
     }
 
     public function parse(string $input): GeslibFile
     {
-        $lines = explode($this->endOfLine, $input);
+        $lines = explode($this->eol, $input);
 
         foreach ($lines as $lineNumber => $line) {
             $lineFields = explode(GeslibFile::FIELD_SEPARATOR, $line);
+            $code = trim($lineFields[0]);
 
-            if (empty(trim($lineFields[0]))) {
+            if (empty($code)) {
                 continue;
             }
 
-            if ($lineNumber === 0 && $lineFields[0] === LineFactory::INITIAL_FILE_CODE) {
+            if ($lineNumber === 0 && $code === LineFactory::INITIAL_FILE_CODE) {
                 $this->file->setAsInitialFile();
                 continue;
             }
 
-            $lineObject = LineFactory::create($lineFields[0], $lineFields);
-
+            $lineObject = LineFactory::create($code, $lineFields);
             $this->file->addLine($lineObject);
         }
 

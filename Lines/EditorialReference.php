@@ -2,91 +2,49 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
-class EditorialReference implements LineInterface
+final class EditorialReference implements LineInterface
 {
-    const CODE = '6E';
+    public const CODE = '6E';
 
-    /**
-     * @var string
-     */
-    private $articleId;
+    private readonly string $articleId;
+    private readonly int $count;
+    private readonly string $value;
 
-    /**
-     * @var int
-     */
-    private $count;
-
-    /**
-     * @var string
-     */
-    private $value;
-
-    /**
-     * EditorialReference constructor.
-     * @param string $articleId
-     * @param int $count
-     * @param string $value
-     */
-    public function __construct($articleId, $count, $value)
+    public function __construct(string $articleId, int $count, string $value)
     {
         $this->articleId = $articleId;
         $this->count = $count;
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
-    public function articleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->count;
-    }
-
-    /**
-     * @return string
-     */
-    public function value()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
-    {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
-    }
-
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
             TypeCast::integer($line[2]),
-            TypeCast::string($line[3])
+            TypeCast::string($line[3]),
         );
+    }
+
+    public function articleId(): string
+    {
+        return $this->articleId;
+    }
+
+    public function count(): int
+    {
+        return $this->count;
+    }
+
+    public function value(): string
+    {
+        return $this->value;
     }
 }

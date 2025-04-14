@@ -2,54 +2,59 @@
 
 namespace NumaxLab\Geslib\Lines;
 
-use NumaxLab\Geslib\GeslibFile;
-
-class PressPublication implements LineInterface
+final class PressPublication implements LineInterface
 {
-    const CODE = '1R';
+    public const CODE = '1R';
 
-    /**
-     * @var Action
-     */
-    private $action;
+    private readonly Action $action;
+    private readonly string $id;
+    private readonly string $name;
+    private readonly string $countryId;
 
-    /**
-     * @var string
-     */
-    private $id;
+    public function __construct(
+        Action $action,
+        string $id,
+        string $name,
+        string $countryId,
+    ) {
+        $this->action = $action;
+        $this->id = $id;
+        $this->name = $name;
+        $this->countryId = $countryId;
+    }
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $countryId;
-
-    /**
-     * @return string
-     */
-    public static function getCode()
+    public static function getCode(): string
     {
         return self::CODE;
     }
 
-    /**
-     * @return string
-     */
-    public function toLine()
+    public static function fromLine(array $line): self
     {
-        return self::CODE.GeslibFile::FIELD_SEPARATOR;
+        return new self(
+            Action::fromCode($line[1]),
+            $line[2],
+            $line[3],
+            $line[4],
+        );
     }
 
-    /**
-     * @param array $line
-     * @return self
-     */
-    public static function fromLine($line)
+    public function action(): Action
     {
-        return new self();
+        return $this->action;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function countryId(): string
+    {
+        return $this->countryId;
     }
 }

@@ -34,11 +34,11 @@ use NumaxLab\Geslib\Lines\Stock;
 use NumaxLab\Geslib\Lines\Topic;
 use NumaxLab\Geslib\Lines\Type;
 
-class LineFactory
+final class LineFactory
 {
-    const INITIAL_FILE_CODE = 'I';
+    public const INITIAL_FILE_CODE = 'I';
 
-    private static $entitiesCodes = [
+    private static array $entitiesCodes = [
         Editorial::CODE => Editorial::class,
         RecordLabel::CODE => RecordLabel::class,
         '1P' => null,
@@ -100,7 +100,7 @@ class LineFactory
 
         if ($lineClass === null) {
             throw new NotImplementedLineCodeException(
-                sprintf('The line with code %s has not an implemented class', $code)
+                sprintf('The line with code %s has not an implemented class', $code),
             );
         }
 
