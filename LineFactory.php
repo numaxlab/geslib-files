@@ -11,6 +11,7 @@ use NumaxLab\Geslib\Lines\ArticleIndexTranslation;
 use NumaxLab\Geslib\Lines\ArticleTopic;
 use NumaxLab\Geslib\Lines\Author;
 use NumaxLab\Geslib\Lines\AuthorBiography;
+use NumaxLab\Geslib\Lines\BindingType;
 use NumaxLab\Geslib\Lines\BookshopReference;
 use NumaxLab\Geslib\Lines\BookshopReferenceTranslation;
 use NumaxLab\Geslib\Lines\Classification;
@@ -21,7 +22,6 @@ use NumaxLab\Geslib\Lines\EbookInfo;
 use NumaxLab\Geslib\Lines\Editorial;
 use NumaxLab\Geslib\Lines\EditorialReference;
 use NumaxLab\Geslib\Lines\EditorialReferenceTranslation;
-use NumaxLab\Geslib\Lines\Format;
 use NumaxLab\Geslib\Lines\Ibic;
 use NumaxLab\Geslib\Lines\Language;
 use NumaxLab\Geslib\Lines\LineInterface;
@@ -57,7 +57,7 @@ final class LineFactory
         ArticleIndex::CODE => ArticleIndex::class,
         ArticleIndexTranslation::CODE => ArticleIndexTranslation::class,
         ArticleAuthor::CODE => ArticleAuthor::class,
-        Format::CODE => Format::class,
+        BindingType::CODE => BindingType::class,
         Language::CODE => Language::class,
         Preposition::CODE => Preposition::class,
         Stock::CODE => Stock::class,

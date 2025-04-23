@@ -4,7 +4,7 @@ namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\TypeCast;
 
-final class Format implements LineInterface
+final class BindingType implements LineInterface
 {
     public const CODE = '7';
 

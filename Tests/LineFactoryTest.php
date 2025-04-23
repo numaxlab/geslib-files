@@ -5,7 +5,7 @@ namespace NumaxLab\Geslib\Tests;
 use NumaxLab\Geslib\Exceptions\InvalidLineCodeException;
 use NumaxLab\Geslib\Exceptions\NotImplementedLineCodeException;
 use NumaxLab\Geslib\LineFactory;
-use NumaxLab\Geslib\Lines\Format;
+use NumaxLab\Geslib\Lines\BindingType;
 use PHPUnit\Framework\TestCase;
 
 class LineFactoryTest extends TestCase
@@ -15,10 +15,10 @@ class LineFactoryTest extends TestCase
         $formatLine = LineFactory::create('7', [
             '7',
             '01',
-            'Tela'
+            'Tela',
         ]);
 
-        $this->assertInstanceOf(Format::class, $formatLine);
+        $this->assertInstanceOf(BindingType::class, $formatLine);
     }
 
     public function testThrowsInvalidLineCodeException()
