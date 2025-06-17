@@ -33,6 +33,11 @@ use NumaxLab\Geslib\Lines\Status;
 use NumaxLab\Geslib\Lines\Stock;
 use NumaxLab\Geslib\Lines\Topic;
 use NumaxLab\Geslib\Lines\Type;
+// Add new use statements here
+// START ADD USE STATEMENTS
+use NumaxLab\Geslib\Lines\ArticleBatchHeader;
+use NumaxLab\Geslib\Lines\ArticleBatchLine;
+// END ADD USE STATEMENTS
 
 final class LineFactory
 {
@@ -71,8 +76,10 @@ final class LineFactory
         'PC' => null,
         'VTA' => null,
         Country::CODE => Country::class,
-        'CLOTE' => null,
-        'LLOTE' => null,
+        // START UPDATE ENTITIESCODES
+        ArticleBatchHeader::CODE => ArticleBatchHeader::class,
+        ArticleBatchLine::CODE => ArticleBatchLine::class,
+        // END UPDATE ENTITIESCODES
         Type::CODE => Type::class,
         Classification::CODE => Classification::class,
         'ATRA' => null,
