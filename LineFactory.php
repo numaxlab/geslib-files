@@ -33,7 +33,7 @@ use NumaxLab\Geslib\Lines\Status;
 use NumaxLab\Geslib\Lines\Stock;
 use NumaxLab\Geslib\Lines\Topic;
 use NumaxLab\Geslib\Lines\Type;
-use NumaxLab\Geslib\Lines\ArtAdv;
+use NumaxLab\Geslib\Lines\Warning;
 
 final class LineFactory
 {
@@ -89,7 +89,7 @@ final class LineFactory
         AuthorBiography::CODE => AuthorBiography::class,
         'EMBALA' => null,
         'PACK' => null,
-        ArtAdv::CODE => ArtAdv::class,
+        Warning::CODE => Warning::class,
     ];
 
     public static function create(string $code, array $lineFields): LineInterface
