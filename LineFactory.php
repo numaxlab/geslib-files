@@ -36,6 +36,7 @@ use NumaxLab\Geslib\Lines\Stock;
 use NumaxLab\Geslib\Lines\Topic;
 use NumaxLab\Geslib\Lines\Type;
 use NumaxLab\Geslib\Lines\Warning;
+use NumaxLab\Geslib\Lines\ArticleResource;
 
 final class LineFactory
 {
@@ -92,6 +93,7 @@ final class LineFactory
         'EMBALA' => null,
         'PACK' => null,
         Warning::CODE => Warning::class,
+        ArticleResource::CODE => ArticleResource::class,
     ];
 
     public static function create(string $code, array $lineFields): LineInterface
