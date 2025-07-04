@@ -3,21 +3,37 @@
 namespace NumaxLab\Geslib\Lines;
 
 use NumaxLab\Geslib\TypeCast;
-use NumaxLab\Geslib\Lines\Action; // Assuming Action class is used
+
+// Assuming Action class is used
 
 class ArticleBatchHeader implements LineInterface
 {
     public const CODE = 'CLOTE';
 
-    private readonly Action $action;
     private readonly string $id;
-    private ?string $batchDescription; // Example field
+    private readonly string $name;
+    private readonly ?string $center;
+    private readonly ?string $mnemonic;
+    private readonly ?string $webInfo;
+    private readonly ?string $categoryName;
+    private readonly ?string $type;
 
-    private function __construct(Action $action, string $id, ?string $batchDescription = null)
-    {
-        $this->action = $action;
+    private function __construct(
+        string $id,
+        string $name,
+        ?string $center = null,
+        ?string $mnemonic = null,
+        ?string $webInfo = null,
+        ?string $categoryName = null,
+        ?string $type = null,
+    ) {
         $this->id = $id;
-        $this->batchDescription = $batchDescription;
+        $this->name = $name;
+        $this->center = $center;
+        $this->mnemonic = $mnemonic;
+        $this->webInfo = $webInfo;
+        $this->categoryName = $categoryName;
+        $this->type = $type;
     }
 
     public static function getCode(): string
@@ -27,35 +43,15 @@ class ArticleBatchHeader implements LineInterface
 
     public static function fromLine(array $line): self
     {
-        $action = Action::fromCode($line[1]);
-        $id = TypeCast::string($line[2]);
-
-        if ($action->isDelete()) {
-            return self::createWithDeleteAction($id);
-        }
-
-        // Assuming batchDescription is in the 3rd position ($line[3])
-        // Adjust the index as per actual geslib format for CLOTE
-        return self::createWithAction(
-            $action,
-            $id,
-            isset($line[3]) ? TypeCast::string($line[3]) : null
+        return new self(
+            TypeCast::string($line[1]),
+            TypeCast::string($line[2]),
+            TypeCast::string($line[3]),
+            TypeCast::string($line[4]),
+            TypeCast::string($line[5]),
+            TypeCast::string($line[6]),
+            TypeCast::string($line[7]),
         );
-    }
-
-    public static function createWithDeleteAction(string $id): self
-    {
-        return new self(Action::fromCode(Action::DELETE), $id);
-    }
-
-    public static function createWithAction(Action $action, string $id, ?string $batchDescription): self
-    {
-        return new self($action, $id, $batchDescription);
-    }
-
-    public function action(): Action
-    {
-        return $this->action;
     }
 
     public function id(): string
@@ -63,8 +59,33 @@ class ArticleBatchHeader implements LineInterface
         return $this->id;
     }
 
-    public function batchDescription(): ?string
+    public function name(): string
     {
-        return $this->batchDescription;
+        return $this->name;
+    }
+
+    public function center(): ?string
+    {
+        return $this->center;
+    }
+
+    public function mnemonic(): ?string
+    {
+        return $this->mnemonic;
+    }
+
+    public function webInfo(): ?string
+    {
+        return $this->webInfo;
+    }
+
+    public function categoryName(): ?string
+    {
+        return $this->categoryName;
+    }
+
+    public function type(): ?string
+    {
+        return $this->type;
     }
 }
