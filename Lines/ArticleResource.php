@@ -12,15 +12,15 @@ class ArticleResource implements LineInterface
     private readonly int $articleId;
     private readonly int $id;
     private readonly string $url;
-    private readonly string $type; // "I" for image, "V" for video
-    private readonly Carbon $createdAt;
+    private readonly string $type;
+    private readonly ?Carbon $createdAt;
 
     private function __construct(
         int $articleId,
         int $id,
         string $url,
         string $type,
-        Carbon $createdAt,
+        ?Carbon $createdAt,
     ) {
         $this->articleId = $articleId;
         $this->id = $id;
@@ -65,7 +65,7 @@ class ArticleResource implements LineInterface
         return $this->type;
     }
 
-    public function createdAt(): Carbon
+    public function createdAt(): ?Carbon
     {
         return $this->createdAt;
     }

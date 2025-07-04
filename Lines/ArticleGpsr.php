@@ -8,18 +8,18 @@ class ArticleGpsr implements LineInterface
 {
     const CODE = 'ARTGPSR';
 
-    private readonly string $articleId;
+    private readonly int $articleId;
     private readonly ?int $unknown1;
     private readonly ?string $unknown2;
     private readonly ?string $unknown3;
     private readonly ?string $url;
 
     private function __construct(
-        string $articleId,
+        int $articleId,
         ?int $unknown1,
         ?string $unknown2,
         ?string $unknown3,
-        ?string $url
+        ?string $url,
     ) {
         $this->articleId = $articleId;
         $this->unknown1 = $unknown1;
@@ -35,38 +35,16 @@ class ArticleGpsr implements LineInterface
 
     public static function fromLine(array $line): self
     {
-        // Assuming $line[0] is the CODE 'ARTGPSR'
-        // $line[1] is articleId
-        // $line[2] is unknown1
-        // $line[3] is unknown2
-        // $line[4] is unknown3
-        // $line[5] is url
-        return self::create(
+        return new self(
             TypeCast::string($line[1]),
             TypeCast::integer($line[2]),
             TypeCast::string($line[3]),
             TypeCast::string($line[4]),
-            TypeCast::string($line[5])
+            TypeCast::string($line[5]),
         );
     }
 
-    public static function create(
-        string $articleId,
-        ?int $unknown1,
-        ?string $unknown2,
-        ?string $unknown3,
-        ?string $url
-    ): self {
-        return new self(
-            $articleId,
-            $unknown1,
-            $unknown2,
-            $unknown3,
-            $url
-        );
-    }
-
-    public function articleId(): string
+    public function articleId(): int
     {
         return $this->articleId;
     }
