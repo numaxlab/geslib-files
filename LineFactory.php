@@ -37,6 +37,7 @@ use NumaxLab\Geslib\Lines\Topic;
 use NumaxLab\Geslib\Lines\Type;
 use NumaxLab\Geslib\Lines\Warning;
 use NumaxLab\Geslib\Lines\ArticleResource;
+use NumaxLab\Geslib\Lines\ArticleGpsr;
 
 final class LineFactory
 {
@@ -94,6 +95,7 @@ final class LineFactory
         'PACK' => null,
         Warning::CODE => Warning::class,
         ArticleResource::CODE => ArticleResource::class,
+        ArticleGpsr::CODE => ArticleGpsr::class,
     ];
 
     public static function create(string $code, array $lineFields): LineInterface
