@@ -6,6 +6,8 @@ use NumaxLab\Geslib\Exceptions\InvalidLineCodeException;
 use NumaxLab\Geslib\Exceptions\NotImplementedLineCodeException;
 use NumaxLab\Geslib\Lines\Article;
 use NumaxLab\Geslib\Lines\ArticleAuthor;
+use NumaxLab\Geslib\Lines\ArticleBatchHeader;
+use NumaxLab\Geslib\Lines\ArticleBatchLine;
 use NumaxLab\Geslib\Lines\ArticleIndex;
 use NumaxLab\Geslib\Lines\ArticleIndexTranslation;
 use NumaxLab\Geslib\Lines\ArticleTopic;
@@ -71,8 +73,8 @@ final class LineFactory
         'PC' => null,
         'VTA' => null,
         Country::CODE => Country::class,
-        'CLOTE' => null,
-        'LLOTE' => null,
+        ArticleBatchHeader::CODE => ArticleBatchHeader::class,
+        ArticleBatchLine::CODE => ArticleBatchLine::class,
         Type::CODE => Type::class,
         Classification::CODE => Classification::class,
         'ATRA' => null,
