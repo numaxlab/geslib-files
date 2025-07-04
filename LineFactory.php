@@ -8,9 +8,12 @@ use NumaxLab\Geslib\Lines\Article;
 use NumaxLab\Geslib\Lines\ArticleAuthor;
 use NumaxLab\Geslib\Lines\ArticleBatchHeader;
 use NumaxLab\Geslib\Lines\ArticleBatchLine;
+use NumaxLab\Geslib\Lines\ArticleGpsr;
 use NumaxLab\Geslib\Lines\ArticleIndex;
 use NumaxLab\Geslib\Lines\ArticleIndexTranslation;
+use NumaxLab\Geslib\Lines\ArticleResource;
 use NumaxLab\Geslib\Lines\ArticleTopic;
+use NumaxLab\Geslib\Lines\ArticleTranslation;
 use NumaxLab\Geslib\Lines\Author;
 use NumaxLab\Geslib\Lines\AuthorBiography;
 use NumaxLab\Geslib\Lines\BindingType;
@@ -36,9 +39,6 @@ use NumaxLab\Geslib\Lines\Stock;
 use NumaxLab\Geslib\Lines\Topic;
 use NumaxLab\Geslib\Lines\Type;
 use NumaxLab\Geslib\Lines\Warning;
-use NumaxLab\Geslib\Lines\ArticleResource;
-use NumaxLab\Geslib\Lines\ArticleGpsr;
-use NumaxLab\Geslib\Lines\ArticleTranslation;
 
 final class LineFactory
 {
@@ -94,8 +94,14 @@ final class LineFactory
         AuthorBiography::CODE => AuthorBiography::class,
         'EMBALA' => null,
         'PACK' => null,
-        Warning::CODE => Warning::class,
+        'TRACKS' => null,
+        'ATRIBU' => null,
+        'ARTATR' => null,
+        'COEDI' => null,
         ArticleResource::CODE => ArticleResource::class,
+        'CDP' => null,
+        'LDP' => null,
+        Warning::CODE => Warning::class,
         ArticleGpsr::CODE => ArticleGpsr::class,
     ];
 
