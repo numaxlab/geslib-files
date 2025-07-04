@@ -20,7 +20,7 @@ class ArticleResource implements LineInterface
         int $id,
         string $url,
         string $type,
-        Carbon $createdAt
+        Carbon $createdAt,
     ) {
         $this->articleId = $articleId;
         $this->id = $id;
@@ -36,34 +36,12 @@ class ArticleResource implements LineInterface
 
     public static function fromLine(array $line): self
     {
-        // Assuming $line[0] is the code 'ARTREC'
-        // $line[1] is articleId
-        // $line[2] is id
-        // $line[3] is url
-        // $line[4] is type
-        // $line[5] is createdAt
-        return self::createWithData(
-            TypeCast::integer($line[1]), // articleId
-            TypeCast::integer($line[2]), // id
-            TypeCast::string($line[3]),  // url
-            TypeCast::string($line[4]),  // type
-            TypeCast::carbonYmd($line[5]) // createdAt (Ymd format)
-        );
-    }
-
-    public static function createWithData(
-        int $articleId,
-        int $id,
-        string $url,
-        string $type,
-        Carbon $createdAt
-    ): self {
         return new self(
-            $articleId,
-            $id,
-            $url,
-            $type,
-            $createdAt
+            TypeCast::integer($line[1]),
+            TypeCast::integer($line[2]),
+            TypeCast::string($line[3]),
+            TypeCast::string($line[4]),
+            TypeCast::carbon($line[5]),
         );
     }
 
@@ -90,5 +68,15 @@ class ArticleResource implements LineInterface
     public function createdAt(): Carbon
     {
         return $this->createdAt;
+    }
+
+    public function isImage(): bool
+    {
+        return $this->type === 'I';
+    }
+
+    public function isVideo(): bool
+    {
+        return $this->type === 'V';
     }
 }
