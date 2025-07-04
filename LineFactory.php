@@ -38,6 +38,7 @@ use NumaxLab\Geslib\Lines\Type;
 use NumaxLab\Geslib\Lines\Warning;
 use NumaxLab\Geslib\Lines\ArticleResource;
 use NumaxLab\Geslib\Lines\ArticleGpsr;
+use NumaxLab\Geslib\Lines\ArticleTranslation;
 
 final class LineFactory
 {
@@ -80,7 +81,7 @@ final class LineFactory
         ArticleBatchLine::CODE => ArticleBatchLine::class,
         Type::CODE => Type::class,
         Classification::CODE => Classification::class,
-        'ATRA' => null,
+        ArticleTranslation::CODE => ArticleTranslation::class,
         'CLOTCLI' => null,
         'LLOTCLI' => null,
         'PROFES' => null,
