@@ -15,7 +15,12 @@ final class TypeCast
             return null;
         }
 
-        return mb_convert_encoding($value, 'UTF-8', 'ISO-8859-1');
+        // Only convert if not already UTF-8
+        if (!mb_check_encoding($value, 'UTF-8')) {
+            $value = mb_convert_encoding($value, 'UTF-8', 'ISO-8859-1');
+        }
+
+        return $value;
     }
 
     public static function integer(string $value): ?int
