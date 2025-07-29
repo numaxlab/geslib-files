@@ -15,6 +15,10 @@ final class GeslibFile
     {
         $parser = new Parser(new self(), $eol);
 
+        if (!mb_check_encoding($input, 'UTF-8')) {
+            $input = mb_convert_encoding($input, 'UTF-8', 'ISO-8859-1');
+        }
+
         return $parser->parse($input);
     }
 
