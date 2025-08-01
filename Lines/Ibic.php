@@ -2,6 +2,7 @@
 
 namespace NumaxLab\Geslib\Lines;
 
+use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
 final class Ibic implements LineInterface
@@ -19,11 +20,6 @@ final class Ibic implements LineInterface
         $this->description = $description;
     }
 
-    public static function getCode(): string
-    {
-        return self::CODE;
-    }
-
     public static function fromLine(array $line): self
     {
         return new self(
@@ -31,6 +27,24 @@ final class Ibic implements LineInterface
             TypeCast::string($line[2]),
             TypeCast::string($line[3]),
         );
+    }
+
+    public function toLine(): string
+    {
+        return implode(
+            GeslibFile::FIELD_SEPARATOR,
+            [
+                self::getCode(),
+                $this->articleId,
+                $this->code,
+                $this->description,
+            ],
+        );
+    }
+
+    public static function getCode(): string
+    {
+        return self::CODE;
     }
 
     public function articleId(): string

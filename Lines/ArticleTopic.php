@@ -2,6 +2,7 @@
 
 namespace NumaxLab\Geslib\Lines;
 
+use NumaxLab\Geslib\GeslibFile;
 use NumaxLab\Geslib\TypeCast;
 
 final class ArticleTopic implements LineInterface
@@ -17,17 +18,29 @@ final class ArticleTopic implements LineInterface
         $this->articleId = $articleId;
     }
 
-    public static function getCode(): string
-    {
-        return self::CODE;
-    }
-
     public static function fromLine(array $line): self
     {
         return new self(
             TypeCast::string($line[1]),
             TypeCast::string($line[2]),
         );
+    }
+
+    public function toLine(): string
+    {
+        return implode(
+            GeslibFile::FIELD_SEPARATOR,
+            [
+                self::getCode(),
+                $this->topicId,
+                $this->articleId,
+            ],
+        );
+    }
+
+    public static function getCode(): string
+    {
+        return self::CODE;
     }
 
     public function topicId(): string
