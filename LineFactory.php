@@ -19,6 +19,7 @@ use NumaxLab\Geslib\Lines\AuthorBiography;
 use NumaxLab\Geslib\Lines\BindingType;
 use NumaxLab\Geslib\Lines\BookshopReference;
 use NumaxLab\Geslib\Lines\BookshopReferenceTranslation;
+use NumaxLab\Geslib\Lines\CenterStock;
 use NumaxLab\Geslib\Lines\Classification;
 use NumaxLab\Geslib\Lines\Collection;
 use NumaxLab\Geslib\Lines\Country;
@@ -34,6 +35,7 @@ use NumaxLab\Geslib\Lines\Preposition;
 use NumaxLab\Geslib\Lines\PressPublication;
 use NumaxLab\Geslib\Lines\Province;
 use NumaxLab\Geslib\Lines\RecordLabel;
+use NumaxLab\Geslib\Lines\StationeryCategory;
 use NumaxLab\Geslib\Lines\Status;
 use NumaxLab\Geslib\Lines\Stock;
 use NumaxLab\Geslib\Lines\Topic;
@@ -47,7 +49,7 @@ final class LineFactory
     private static array $entitiesCodes = [
         Editorial::CODE => Editorial::class,
         RecordLabel::CODE => RecordLabel::class,
-        '1P' => null,
+        StationeryCategory::CODE => StationeryCategory::class,
         PressPublication::CODE => PressPublication::class,
         Collection::CODE => Collection::class,
         Topic::CODE => Topic::class,
@@ -67,7 +69,7 @@ final class LineFactory
         Language::CODE => Language::class,
         Preposition::CODE => Preposition::class,
         Stock::CODE => Stock::class,
-        'B2' => null,
+        CenterStock::CODE => CenterStock::class,
         Status::CODE => Status::class,
         'CLI' => null,
         Author::CODE => Author::class,
