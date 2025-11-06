@@ -21,6 +21,7 @@ use NumaxLab\Geslib\Lines\BookshopReference;
 use NumaxLab\Geslib\Lines\BookshopReferenceTranslation;
 use NumaxLab\Geslib\Lines\CenterStock;
 use NumaxLab\Geslib\Lines\Classification;
+use NumaxLab\Geslib\Lines\Coedition;
 use NumaxLab\Geslib\Lines\Collection;
 use NumaxLab\Geslib\Lines\Country;
 use NumaxLab\Geslib\Lines\EBook;
@@ -99,7 +100,7 @@ final class LineFactory
         'TRACKS' => null,
         'ATRIBU' => null,
         'ARTATR' => null,
-        'COEDI' => null,
+        Coedition::CODE => Coedition::class,
         ArticleResource::CODE => ArticleResource::class,
         'CDP' => null,
         'LDP' => null,
